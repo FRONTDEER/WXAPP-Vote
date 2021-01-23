@@ -1,0 +1,71 @@
+{
+      "description": "项目配置文件",
+      "packOptions": {
+            "ignore": []
+      },
+      "setting": {
+            "bundle": false,
+            "userConfirmedBundleSwitch": false,
+            "urlCheck": true,
+            "scopeDataCheck": false,
+            "coverView": true,
+            "es6": true,
+            "postcss": true,
+            "compileHotReLoad": false,
+            "preloadBackgroundData": false,
+            "minified": true,
+            "autoAudits": false,
+            "newFeature": false,
+            "uglifyFileName": false,
+            "uploadWithSourceMap": true,
+            "useIsolateContext": true,
+            "nodeModules": false,
+            "enhance": false,
+            "useCompilerModule": true,
+            "userConfirmedUseCompilerModuleSwitch": false,
+            "useMultiFrameRuntime": true,
+            "useApiHook": true,
+            "useApiHostProcess": false,
+            "showShadowRootInWxmlPanel": true,
+            "packNpmManually": false,
+            "enableEngineNative": false,
+            "packNpmRelationList": [],
+            "minifyWXSS": true
+      },
+      "compileType": "miniprogram",
+      "libVersion": "2.14.4",
+      "appid": "wx71f352188ea85fe9",
+      "projectname": "云开发投票小程序-本地演示DEMO",
+      "debugOptions": {
+            "hidedInDevtools": []
+      },
+      "scripts": {},
+      "isGameTourist": false,
+      "condition": {
+            "plugin": {
+                  "list": []
+            },
+            "game": {
+                  "list": []
+            },
+            "gamePlugin": {
+                  "list": []
+            },
+            "miniprogram": {
+                  "list": [
+                        {
+                              "name": "有效进入",
+                              "pathName": "pages/vote/vote",
+                              "query": "code=SIN",
+                              "scene": null
+                        },
+                        {
+                              "name": "无效进入",
+                              "pathName": "pages/vote/vote",
+                              "query": "",
+                              "scene": null
+                        }
+                  ]
+            }
+      }
+}
