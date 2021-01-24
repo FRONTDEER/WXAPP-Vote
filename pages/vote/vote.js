@@ -1,6 +1,6 @@
 // pages/vote/votejs
 // 项目，通过实时
-// 用户，调用云函数
+// 用户，调用云函数 
 // 投票，调用云函数，自己和项目票数自增
 
 //=================虚拟数据源====================
@@ -44,19 +44,40 @@ Page({
       },
       
       init_project() {
-            setTimeout(function () {
-                  //虚拟数据源中含传入路径，设置项目
+            //监听数据库投票项目，传入路径，用返回结果设置项目
                   //    用户数据为空，或当前没有投票数据（被重置），则初始化用户
-                  if (tempdata[that.code] != null) {
-                        let result = tempdata[that.code]
-                        setProject(result)
-                        if (that.data.user == null || result.number == null)
-                              that.init_user()
+            that.watch = wx.cloud.database().collection('vote_mess').where({
+                  code:that.code
+            }).watch({
+                  onChange(res){
+                        console.log(res)
+                        if(res.docs.length != 0) {
+                              let result = res.docs[0];
+                              setProject(result);
+                              if(that.data.user == null || result.number == null){
+                                    that.init_user()
+                              }
+                        }else{
+                              setInfo('T_OPEN')
+                        }
+                  },
+                  onError(err){
+                        setInfo('T_NET')
                   }
-            }, 300)
+            })
       },
 
       init_user() {
+            //取数据库中用户的投票信息
+            netCall({
+                  name: 'vote_init',
+                  data:{
+                        code: that.code
+                  },
+                  success(res){
+                        setUser(res.result)
+                  }
+            })
             // 取本地缓存中用户该投票的投票数据
             //    若有，则以该值设置用户的投票数据
             //    若无，则以空参数设置
