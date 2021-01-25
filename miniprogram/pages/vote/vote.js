@@ -78,17 +78,6 @@ Page({
                         setUser(res.result)
                   }
             })
-            // 取本地缓存中用户该投票的投票数据
-            //    若有，则以该值设置用户的投票数据
-            //    若无，则以空参数设置
-            setTimeout(function () {
-                  let user = wx.getStorageSync(that.code)
-                  if (user != null && user != '') {
-                        setUser(user)
-                  } else {
-                        setUser([])
-                  }
-            }, 300)
       },
       
       vote(e) {
@@ -115,10 +104,16 @@ Page({
             that.setData({
                   load: tempvote
             })
-            setTimeout(function () {
-                  wx.setStorageSync(that.code, tempvote)
-                  setUser(tempvote)
-            }, 300)
+            netCall({
+                  name:'vote_exe',
+                  data:{
+                        select: tempvote,
+                        code: that.code
+                  },
+                  success(res){
+                        setUser(res.result)
+                  }
+            })
       },
 
       onShareAppMessage() {

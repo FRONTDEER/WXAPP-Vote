@@ -1,16 +1,14 @@
 {
-      "description": "项目配置文件",
-      "packOptions": {
-            "ignore": []
-      },
+      "miniprogramRoot": "miniprogram/",
+      "cloudfunctionRoot": "cloudfunctions/",
       "setting": {
             "urlCheck": true,
-            "es6": false,
-            "enhance": false,
+            "es6": true,
+            "enhance": true,
             "postcss": true,
             "preloadBackgroundData": false,
             "minified": true,
-            "newFeature": false,
+            "newFeature": true,
             "coverView": true,
             "nodeModules": false,
             "autoAudits": false,
@@ -39,15 +37,9 @@
             "packNpmRelationList": [],
             "minifyWXSS": true
       },
-      "compileType": "miniprogram",
-      "libVersion": "2.14.4",
       "appid": "wx71f352188ea85fe9",
-      "projectname": "云开发投票小程序-本地演示DEMO",
-      "debugOptions": {
-            "hidedInDevtools": []
-      },
-      "scripts": {},
-      "isGameTourist": false,
+      "projectname": "云开发投票小程序-第一期",
+      "libVersion": "2.8.1",
       "condition": {
             "plugin": {
                   "list": []
@@ -69,7 +61,13 @@
                         {
                               "name": "无效进入",
                               "pathName": "pages/vote/vote",
-                              "query": "",
+                              "query": "code=SINA",
+                              "scene": null
+                        },
+                        {
+                              "name": "测试",
+                              "pathName": "pages/vote/vote",
+                              "query": "code=BI",
                               "scene": null
                         }
                   ]
