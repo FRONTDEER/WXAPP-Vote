@@ -35,7 +35,9 @@ exports.main = async (event, context) => {
                   if (diff[i]) delete diff[i]
                   else diff[i] = _.inc(-1)
             }
-
+            //全部相同，则直接返回
+            if(Object.keys(diff).length == 0)
+                  return newData
             //对用户的数据操作
             await db.collection('vote_user').where({
                   openid: openid

@@ -42,26 +42,26 @@ Page({
                   setInfo('T_OPEN')
             }
       },
-      
+
       init_project() {
             //监听数据库投票项目，传入路径，用返回结果设置项目
-                  //    用户数据为空，或当前没有投票数据（被重置），则初始化用户
+            //    用户数据为空，或当前没有投票数据（被重置），则初始化用户
             that.watch = wx.cloud.database().collection('vote_mess').where({
-                  code:that.code
+                  code: that.code
             }).watch({
-                  onChange(res){
+                  onChange(res) {
                         console.log(res)
-                        if(res.docs.length != 0) {
+                        if (res.docs.length != 0) {
                               let result = res.docs[0];
                               setProject(result);
-                              if(that.data.user == null || result.number == null){
+                              if (that.data.user == null || result.number == null) {
                                     that.init_user()
                               }
-                        }else{
+                        } else {
                               setInfo('T_OPEN')
                         }
                   },
-                  onError(err){
+                  onError(err) {
                         setInfo('T_NET')
                   }
             })
@@ -71,15 +71,15 @@ Page({
             //取数据库中用户的投票信息
             netCall({
                   name: 'vote_init',
-                  data:{
+                  data: {
                         code: that.code
                   },
-                  success(res){
+                  success(res) {
                         setUser(res.result)
                   }
             })
       },
-      
+
       vote(e) {
             //校验投票是否开启
             if (that.data.project.open != true) {
@@ -95,24 +95,44 @@ Page({
                   showModel('S_ONE')
                   return;
             }
-            /*
-                  开始正式单选投票
-            */
-            let tempvote = {
-                  [e.currentTarget.dataset.i]: true
+
+            let tempvote = {}
+            if (e.currentTarget.dataset.mul){
+                  for(let i in that.data.user){
+                        if(that.data.user[i]){
+                              tempvote[i] = true
+                        }
+                  }
+                  if(Object.keys(tempvote).length == 0)
+                  {
+                        showModel('S_EMPTY')
+                        return;
+                  }     
             }
+            else {
+                  tempvote[e.currentTarget.dataset.i] = true
+            }
+
             that.setData({
                   load: tempvote
             })
             netCall({
-                  name:'vote_exe',
-                  data:{
+                  name: 'vote_exe',
+                  data: {
                         select: tempvote,
                         code: that.code
                   },
-                  success(res){
+                  success(res) {
                         setUser(res.result)
                   }
+            })
+      },
+
+      select(e) {
+            let key = 'user.' + e.currentTarget.dataset.i
+            console.log(key)
+            that.setData({
+                  [key]: !this.data.user[e.currentTarget.dataset.i]
             })
       },
 
